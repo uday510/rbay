@@ -12,7 +12,6 @@ export const getUserByUsername = async (username: string) => {
   const id = decimalId.toString(16);
 
   const user = await client.hGetAll(usersKey(id));
-  console.log(user);
 
   return deserialize(id, user);
 };
