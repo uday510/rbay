@@ -17,3 +17,15 @@ export const sessionsKey = (sessionId: string) => {
 export const itemsKey = (itemId: string) => {
   return cacheKey("items#", itemId);
 }
+
+export const usernamesUniqueKey = () => {
+  return "usernames:unique";
+}
+
+export const userLikesKey = (userId: string) => {
+  return `users:likes#${userId}`;
+}
+
+export const usernamesKey = () => {
+  return "usernames";
+}

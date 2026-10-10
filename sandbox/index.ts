@@ -41,8 +41,6 @@ const run = async () => {
     .hGetAll('user:2')
     .hGetAll('user:3')
     .execAsPipeline();
-
-  console.log(res);
 };
 
 

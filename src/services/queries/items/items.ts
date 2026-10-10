@@ -13,13 +13,16 @@ export const getItem = async (id: string) => {
 
 export const getItems = async (ids: string[]) => {
   const pipeline = client.multi();
-  ids.forEach(id => pipeline.hGetAll(id));
-  const res = await pipeline.execAsPipeline();
+  ids.forEach(id => pipeline.hGetAll(itemsKey(id)));
+  const results = await pipeline.execAsPipeline();
 
-  return res.map((r, idx) =>
-    deserialize(ids[idx], r as unknown as Record<string, string>)
-  );
-
+  return results.map((result, i) => {
+    const r = result as unknown as Record<string, string>;
+    if (Object.keys(r).length === 0) {
+      return null;
+    }
+    return deserialize(ids[i], r);
+  });
 };
 
 export const createItem = async (attrs: CreateItemAttrs, userId: string) => {
