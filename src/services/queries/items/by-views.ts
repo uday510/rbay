@@ -2,7 +2,6 @@ import { itemsByViewsKey, itemsKey } from "$services/keys";
 import { client } from "$services/redis";
 import { deserialize } from ".";
 
-
 export const itemsByViews = async (
   order: 'DESC' | 'ASC' = 'DESC',
   offset = 0,
