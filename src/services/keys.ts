@@ -29,3 +29,11 @@ export const userLikesKey = (userId: string) => {
 export const usernamesKey = () => {
   return "usernames";
 }
+
+export const itemsByViewsKey = () => {
+  return "items:views";
+}
+
+export const itemsByEndingAtKey = () => {
+  return "items:endingAt:"
+}
