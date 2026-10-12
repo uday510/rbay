@@ -1,6 +1,6 @@
-import { log } from '@grpc/grpc-js/build/src/logging';
 import { createClient, defineScript } from 'redis';
 import { incrementViewScript } from '../scripts/increment-view';
+
 const client = createClient({
   socket: {
     host: process.env.REDIS_HOST,
