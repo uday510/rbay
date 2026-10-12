@@ -1,5 +1,6 @@
 import { itemsByViewsKey, itemsViewsKey, itemsKey } from "$services/keys";
 import { client } from "$services/redis";
+import { defineScript } from "redis";
 
 // export const incrementView = async (itemId: string, userId: string) => {
 //   const ok = await client.pfAdd(itemsViewsKey(itemId), userId);
@@ -24,8 +25,14 @@ end
 return 0
 `;
 
+// export const incrementView = (itemId: string, userId: string) =>
+//   client.eval(INCREMENT_VIEW, {
+//     keys: [itemsViewsKey(itemId), itemsKey(itemId), itemsByViewsKey()],
+//     arguments: [userId, itemId],
+//   });
+
 export const incrementView = (itemId: string, userId: string) =>
-  client.eval(INCREMENT_VIEW, {
-    keys: [itemsViewsKey(itemId), itemsKey(itemId), itemsByViewsKey()],
-    arguments: [userId, itemId],
-});
+  client.incrementView(
+    itemsViewsKey(itemId), itemsKey(itemId), itemsByViewsKey(),
+    userId, itemId
+  );

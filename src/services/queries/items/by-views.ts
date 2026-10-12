@@ -23,5 +23,6 @@ export const itemsByViews = async (
     const attrs = Object.fromEntries(fields.map((f, j) => [f, values[j]]));
     items.push(deserialize(id, attrs));
   }
+
   return items;
 };

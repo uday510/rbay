@@ -1,7 +1,8 @@
-import { itemsByEndingAtKey, itemsByViewsKey, itemsKey } from '$services/keys';
+import { itemsByEndingAtKey, itemsByPriceKey, itemsByViewsKey, itemsKey } from '$services/keys';
 import { client } from '$services/redis';
 import type { CreateItemAttrs } from '$services/types';
 import { genId } from '$services/utils';
+import { itemsByPrice } from '.';
 import { deserialize } from './deserialize';
 import { serialize } from './serialize';
 
@@ -34,6 +35,7 @@ export const createItem = async (attrs: CreateItemAttrs, userId: string) => {
     .hSet(itemsKey(id), serialized)
     .zAdd(itemsByViewsKey(), { value: id, score: 0 })
     .zAdd(itemsByEndingAtKey(), { value: id, score: attrs.endingAt.toMillis() })
+    .zAdd(itemsByPriceKey(), { value: id, score: 0})
     .execAsPipeline();
 
   return id;
