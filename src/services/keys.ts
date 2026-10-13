@@ -49,3 +49,7 @@ export const bidHistoryKey = (itemId: string) => {
 export const itemsByPriceKey = () => {
   return 'items:price';
 }
+
+export const itemsIndexKey = () => {
+  return 'idx:items';
+}

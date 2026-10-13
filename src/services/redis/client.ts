@@ -1,5 +1,6 @@
 import { createClient, defineScript } from 'redis';
 import { incrementViewScript } from '../scripts/increment-view';
+import { createIndexes } from './create-indexes';
 
 const client = createClient({
   socket: {
@@ -31,5 +32,13 @@ const client = createClient({
 
 client.on('error', (err) => console.error(err));
 client.connect();
+client.on('connect', async () => {
+  try {
+    await createIndexes();
+  } catch (err) {
+    console.error(err);
+  }
+
+})
 
 export { client };
